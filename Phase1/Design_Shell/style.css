@@ -1,0 +1,43 @@
+html{
+    background: powderblue;
+}
+
+head{
+    font-size: large;
+}
+/* that top right section */
+h1{
+    color:rgb(41,112,250);
+    text-align: right;
+}
+
+/* bow down to purr majesty */
+h2{
+    color:rgb(41,112,250);
+    text-align: right;
+}
+
+/* nyan cat emoji */
+h3{
+    color: #e03fd8;
+}
+
+/* content in the same div will be side to side
+    and centered in their own space */
+div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+/* change up the image a bit */
+img{
+    border-radius: 10%;
+    width: 50%;
+}
+p{
+    color: rgb(41,112,250);
+    padding: 10px;
+}
