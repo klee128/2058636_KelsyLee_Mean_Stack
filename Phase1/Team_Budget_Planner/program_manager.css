@@ -17,3 +17,7 @@ html {
 .buttons {
     flex-direction: row;
 }
+
+a {
+    text-align: left;
+}
