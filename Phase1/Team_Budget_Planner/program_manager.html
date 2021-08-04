@@ -3,13 +3,32 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Program Managers</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='program_manager.css'>
+    <script src='program_manager.js'></script>
 </head>
 <body>
-    <p>Add New Budget</p>
-    <div>Client Name</div>
+    <div class="boxed" onload="initializeArray()">
+        <h1>Add New Budget</h1>
+
+        <form>
+            <label for="clientName">Client Name: </label> &nbsp;
+            <textarea id="clientName" rows="1"></textarea>
+            <br/>
+            <label for="projectName">Project Name: </label>&nbsp;
+            <textarea id="projectName" rows="1"></textarea>
+            <br/>
+            <label for="budget">Budget: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <textarea id="budget" rows="1"></textarea>
+            <br/>
+
+            <a class="button" href="index.html">Back</a>
+            <button type="button" id="submitButton" onclick="addBudgetInfo()">Add</button>
+            <button type="reset" id="clearButton">Clear</button>
+        </form>
+
+    </div>
+
 </body>
 </html>
