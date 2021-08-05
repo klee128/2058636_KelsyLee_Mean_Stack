@@ -32,7 +32,7 @@ function displayPost() {
     let fullTags = "";
     for (let i = blogArray.length - 1; i >= 0 ; i--){
         let openTag = '<div class="blogBox col-3">';
-        let imageTag = '<img class="img-thumbnail" style="width:fit-content;" src="' + blogArray[i].imageURL + '" />';
+        let imageTag = (blogArray[i].imageURL != "") ? '<img class="img-thumbnail" style="width:fit-content;" src="' + blogArray[i].imageURL + '" />': '';
         let titleTag = '<h4 style="word-wrap: normal;">' + blogArray[i].title + '</h4>';
         let articleTag = '<h6 style="word-wrap: normal;">' + blogArray[i].article + '</h6>';
         let closeTag = '</div>';
