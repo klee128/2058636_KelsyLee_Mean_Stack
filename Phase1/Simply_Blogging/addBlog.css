@@ -1,0 +1,22 @@
+html {
+    background-color: rgb(206, 164, 129);
+}
+
+.boxed {
+    background-color: rgb(247, 174, 174);
+    margin: 15px;
+    border: 3px solid black;
+    padding: 20px;
+    font-size: medium;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    text-align: left;
+}
+
+.blogBox {
+    background-color: rgb(247, 174, 174);
+    border: 3px solid black;
+    margin: 5px;
+    word-wrap: normal;
+}
