@@ -1,29 +1,8 @@
 "use strict";
-// // sum up quantity of all products in productArray
-function displayCartSize() {
-    var _a, _b;
-    //retrieve productArray from session storage
-    let productArray = JSON.parse(sessionStorage.getItem('productArray') || "");
-    let totalProducts = 0;
-    for (let product of productArray) {
-        totalProducts += product.quantity;
-    }
-    let totalTag = document.createElement('h3');
-    totalTag.id = 'totalTag';
-    totalTag.innerHTML = "Cart Size: " + totalProducts;
-    // create or update cart size tag
-    if (!!document.getElementById('totalTag')) {
-        let existingTag = document.getElementById('totalTag') || document.createElement("h3");
-        (_a = document.getElementById('cartSize')) === null || _a === void 0 ? void 0 : _a.replaceChild(totalTag, existingTag);
-    }
-    else {
-        (_b = document.getElementById('cartSize')) === null || _b === void 0 ? void 0 : _b.appendChild(totalTag);
-    }
-}
-// // display products that users can add to cart
+// display products that users can add to cart
 function displayProducts() {
-    var _a;
-    console.log("do the display");
+    var _a, _b, _c;
+    console.log("display products");
     // if first time opening/no productArray stored in sessionStorage, initialize the values 
     if (window.sessionStorage.getItem('productArray') == null) {
         // initialize some Products
@@ -37,33 +16,60 @@ function displayProducts() {
         productArray.push(camera, flower, laptop, milktea, pizza, washer);
         let stringed = JSON.stringify(productArray);
         window.sessionStorage.setItem('productArray', stringed);
-        console.log("fresh made productArray: " + stringed);
     }
     //by here, assume that productArray exists in sessionStorage
     const productArray = JSON.parse(window.sessionStorage.getItem('productArray') || "");
-    //display the products using values that were stored in sessionStorage
+    //empty product display from grid
+    let rowTag = document.getElementById('rows');
+    while (rowTag === null || rowTag === void 0 ? void 0 : rowTag.firstChild) {
+        rowTag.removeChild(rowTag.firstChild);
+    }
+    let totalProducts = 0;
+    //display the products on grid
     for (let product of productArray) {
-        console.log('product is ' + product.productName); //delte
+        totalProducts += product.quantity; //keep track of count size
         //in grid format, display product name, price, and quantity
         let coldiv = document.createElement('div');
         coldiv.className = 'col-3';
+        coldiv.id = 'columns';
         coldiv.style.cssText = 'border:1px solid black;';
         coldiv.innerHTML = "<h5>Product Name: " + product.productName +
             " </h5> <br> <h5> Price: " + product.productCost +
-            " </h5> <br> <h5> Quantity:" + product.quantity + " </h5>";
-        // create and add button to the product display
+            " </h5> <br> <h5> Quantity: " + product.quantity + " </h5>";
+        // create Add button to the product display
         let addButton = document.createElement('button');
         addButton.innerText = "Add";
         addButton.addEventListener('click', (e) => {
             addToCart(product.productName); //on click, do addToCart function
-            displayCartSize();
+            displayProducts();
         });
         coldiv.appendChild(addButton);
-        // add new product to shopping cart display
+        //create Delete button to product display
+        let deleteButton = document.createElement('button');
+        deleteButton.innerText = "Delete";
+        deleteButton.addEventListener('click', (e) => {
+            deleteFromCart(product.productName);
+            displayProducts();
+        });
+        coldiv.appendChild(deleteButton);
+        // add product info to the grid
         (_a = document.getElementById("rows")) === null || _a === void 0 ? void 0 : _a.appendChild(coldiv);
+    } //end for loop
+    //display cart size
+    let totalTag = document.createElement('h3');
+    totalTag.id = 'totalTag';
+    totalTag.innerHTML = "Cart Size: " + totalProducts;
+    // create or update cart size tag
+    if (!!document.getElementById('totalTag')) {
+        let existingTag = document.getElementById('totalTag') || document.createElement("h3");
+        (_b = document.getElementById('cartSize')) === null || _b === void 0 ? void 0 : _b.replaceChild(totalTag, existingTag);
+    }
+    else {
+        (_c = document.getElementById('cartSize')) === null || _c === void 0 ? void 0 : _c.appendChild(totalTag);
     }
 }
 ;
+// given a product name, find it in the array and increment the quantity
 function addToCart(pName) {
     const productArray = JSON.parse(window.sessionStorage.getItem('productArray') || "");
     // given an Product object, it checks if the product name matches the product clicked
@@ -75,36 +81,48 @@ function addToCart(pName) {
     productArray.find(findName).quantity += 1; //find the appropriate Product and increment quantity
     window.sessionStorage.setItem('productArray', JSON.stringify(productArray));
 }
-// //event handlers
-window.onload = function () {
-    //dynamically display cart size and products(can add more if needed)
-    displayCartSize();
-    displayProducts();
-};
-// // setInterval(displayProducts, 1000);
-// // function for checkout.html
-// function displayCheckoutTable() {
-//     let productArray = JSON.parse(sessionStorage.getItem('productArray') || "");
-//     console.log("on load");
-//     let table = document.createElement('table');
-//     table.className = "table";
-//     table.innerHTML = '<thead class="thead-dark table-bordered"> <tr> ' + 
-//          '<th> Product Name </th> <th>Price</th> <th>Quantity</th> <th>Total Price</th>' + 
-//          ' </tr>  </thead>';
-//     let body = document.createElement('tbody');
-//     for (let product of productArray) {
-//         console.log(product.productName);
-//         let trow = document.createElement('tr');
-//         trow.innerHTML = "<td>" + product.productName + "</td>" +
-//             "<td>" + product.productCost + "</td>" +
-//             "<td>" + product.quantity + "</td>" + 
-//             "<td>" + product.productCost * product.quantity + "</td>";
-//         body.appendChild(trow);
-//     }
-//     table.appendChild(body);
-//     document.getElementById("insertTable")?.appendChild(table);
-//     // document.getElementById('insertTable')?.appendChild(body);
-// }
-// // window.onload = function () {
-// //     displayCheckoutTable();
-// // }
+function deleteFromCart(pName) {
+    const productArray = JSON.parse(window.sessionStorage.getItem('productArray') || "");
+    function findName(product) {
+        return product.productName;
+    }
+    productArray.find(findName).quantity -= 1;
+    window.sessionStorage.setItem('productArray', JSON.stringify(productArray));
+}
+// function for checkout.html
+function displayCheckoutTable() {
+    var _a;
+    let productArray = JSON.parse(sessionStorage.getItem('productArray') || "");
+    console.log("on load display checkout");
+    // table head
+    let table = document.createElement('table');
+    table.className = "table table-striped";
+    table.innerHTML = '<thead class="thead-dark table-bordered "> <tr> ' +
+        '<th> Product Name </th> <th>Price Per Quantity</th> <th>Quantity</th> <th>Total Price</th>' +
+        ' </tr>  </thead>';
+    // table body
+    let totalQ = 0;
+    let totalC = 0;
+    let body = document.createElement('tbody');
+    for (let product of productArray) {
+        console.log(product.productName);
+        totalQ += product.quantity;
+        totalC += product.quantity * product.productCost;
+        let trow = document.createElement('tr');
+        trow.innerHTML = "<td>" + product.productName + "</td>" +
+            "<td> $" + product.productCost + "</td>" +
+            "<td>" + product.quantity + "</td>" +
+            "<td> $" + product.productCost * product.quantity + "</td>";
+        body.appendChild(trow);
+    }
+    let sumRow = document.createElement('tr');
+    sumRow.className = "table-secondary";
+    sumRow.innerHTML = "<td>" + "Total Cost" + "</td>" +
+        "<td></td>" +
+        "<td>" + totalQ + "</td>" +
+        "<td>" + totalC + "</td>";
+    body.appendChild(sumRow);
+    // append <tbody/> to <table/>
+    table.appendChild(body);
+    (_a = document.getElementById("insertTable")) === null || _a === void 0 ? void 0 : _a.appendChild(table);
+}
