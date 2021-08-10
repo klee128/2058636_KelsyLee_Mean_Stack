@@ -90,7 +90,7 @@ function addToCart(pName: string) {
 
 
 // //event handlers
-window.onload = function () {
+document.body.onload = function () {
     //dynamically display cart size and products(can add more if needed)
     displayCartSize();
     displayProducts();
@@ -101,7 +101,7 @@ window.onload = function () {
 // // function for checkout.html
 // function displayCheckoutTable() {
 //     let productArray = JSON.parse(sessionStorage.getItem('productArray') || "");
-//     console.log("on load");
+//     console.log("on load display checkout");
 //     let table = document.createElement('table');
 //     table.className = "table";
 //     table.innerHTML = '<thead class="thead-dark table-bordered"> <tr> ' + 
@@ -124,6 +124,6 @@ window.onload = function () {
 //     // document.getElementById('insertTable')?.appendChild(body);
 // }
 
-// // window.onload = function () {
-// //     displayCheckoutTable();
-// // }
+// window.onload = function () {
+//     displayCheckoutTable();
+// }
