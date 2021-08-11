@@ -2,7 +2,6 @@
 // display products that users can add to cart
 function displayProducts() {
     var _a, _b, _c;
-    console.log("display products");
     // if first time opening/no productArray stored in sessionStorage, initialize the values 
     if (window.sessionStorage.getItem('productArray') == null) {
         // initialize some Products
@@ -14,8 +13,7 @@ function displayProducts() {
         let washer = { productName: 'Washer', productCost: 300, quantity: 0 };
         let productArray = new Array();
         productArray.push(camera, flower, laptop, milktea, pizza, washer);
-        let stringed = JSON.stringify(productArray);
-        window.sessionStorage.setItem('productArray', stringed);
+        window.sessionStorage.setItem('productArray', JSON.stringify(productArray));
     }
     //by here, assume that productArray exists in sessionStorage
     const productArray = JSON.parse(window.sessionStorage.getItem('productArray') || "");
@@ -39,6 +37,7 @@ function displayProducts() {
         // create Add button to the product display
         let addButton = document.createElement('button');
         addButton.innerText = "Add";
+        addButton.style.cssText = "margin:5px;";
         addButton.addEventListener('click', (e) => {
             addToCart(product.productName); //on click, do addToCart function
             displayProducts();
@@ -47,6 +46,7 @@ function displayProducts() {
         //create Delete button to product display
         let deleteButton = document.createElement('button');
         deleteButton.innerText = "Delete";
+        deleteButton.style.cssText = "margin:5px;";
         deleteButton.addEventListener('click', (e) => {
             deleteFromCart(product.productName);
             displayProducts();
@@ -84,16 +84,17 @@ function addToCart(pName) {
 function deleteFromCart(pName) {
     const productArray = JSON.parse(window.sessionStorage.getItem('productArray') || "");
     function findName(product) {
-        return product.productName;
+        return product.productName == pName;
     }
-    productArray.find(findName).quantity -= 1;
-    window.sessionStorage.setItem('productArray', JSON.stringify(productArray));
+    if (productArray.find(findName).quantity > 0) {
+        productArray.find(findName).quantity -= 1;
+        window.sessionStorage.setItem('productArray', JSON.stringify(productArray));
+    }
 }
 // function for checkout.html
 function displayCheckoutTable() {
     var _a;
     let productArray = JSON.parse(sessionStorage.getItem('productArray') || "");
-    console.log("on load display checkout");
     // table head
     let table = document.createElement('table');
     table.className = "table table-striped";
@@ -105,7 +106,6 @@ function displayCheckoutTable() {
     let totalC = 0;
     let body = document.createElement('tbody');
     for (let product of productArray) {
-        console.log(product.productName);
         totalQ += product.quantity;
         totalC += product.quantity * product.productCost;
         let trow = document.createElement('tr');
