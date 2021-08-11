@@ -143,7 +143,7 @@ function displayCheckoutTable() {
     sumRow.innerHTML = "<td>" + "Total Cost" + "</td>" +
         "<td></td>" +
         "<td>" + totalQ + "</td>" +
-        "<td>" + totalC + "</td>";
+        "<td> $" + totalC + "</td>";
     body.appendChild(sumRow);
 
     // append <tbody/> to <table/>
