@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
 html {
+    background-color: #F1CED4;
+}
+
+div{
     background-color: #F1CED4;
 }

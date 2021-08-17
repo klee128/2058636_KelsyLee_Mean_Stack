@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { User } from '../User.model';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -7,7 +10,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
-  @Output() signUpEvent = new EventEmitter<boolean>();
+  // @Output() signUpEvent = new EventEmitter<boolean>();
+
+  @Output() addUserEvent = new EventEmitter<User>();
 
   constructor() { }
 
@@ -36,10 +41,15 @@ export class SignUpComponent implements OnInit {
   registerUser() {
     console.log("registered");
 
-    // let productArray = JSON.parse(sessionStorage.getItem('productArray') || "");
+    console.log("first name is: " + this.signupRef.value.firstName);
+    let newUser: User = {
+      firstname: this.signupRef.value.firstName,
+      lastname: this.signupRef.value.lastName,
+      username: this.signupRef.value.username,
+      password: this.signupRef.value.password
+    };
     
-
-    this.signUpEvent.emit(false);     //send data to app.component.html to hide sign-up and display portfolio
+    this.addUserEvent.emit(newUser);  //send User object to app.component.html
     this.signupRef.reset();           //reset form
   }
 

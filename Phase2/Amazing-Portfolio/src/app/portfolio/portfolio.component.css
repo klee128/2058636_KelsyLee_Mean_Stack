@@ -1,0 +1,23 @@
+.red-box{
+    background-color: #AA1945;
+    margin: 10%;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: large;
+    color: #F9CCD3;
+    text-align: center;
+}
+
+.brown-box{
+    background-color: #391306;
+    margin: 10%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: large;
+    color: #F9CCD3;
+    text-align: center
+}
