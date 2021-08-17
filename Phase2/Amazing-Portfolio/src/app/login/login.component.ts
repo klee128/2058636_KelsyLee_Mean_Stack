@@ -8,9 +8,16 @@ import { User } from '../User.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  // get data from parent to child
+  @Input() isFailLogin: boolean = false;
+
   // send data from child to parent
   @Output() signupEvent = new EventEmitter<boolean>();
   @Output() validateUserEvent = new EventEmitter<User>();
+
+  // component properties
+  errorMsg: string = "Incorrect username or password. Try again.";
 
   constructor() { }
 

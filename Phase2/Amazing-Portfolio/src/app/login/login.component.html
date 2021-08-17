@@ -9,6 +9,11 @@
             <label>Enter Password: </label>
             <input type="password" formControlName="password" />
             <br /><br />
+            
+            <div style="background-color: #391306;" *ngIf="isFailLogin">
+                <span style="color:#AA1945; ">{{errorMsg}}</span>
+                <br/> <br/>                
+            </div>
 
             <button type="button" class="btn btn-outline-light" style="margin: 10px;" (click)="signup()" >Sign Up</button>
             <button type="submit" class="btn btn-outline-light" style="margin: 10px;" (click)="validateLogin()" >Log In</button>

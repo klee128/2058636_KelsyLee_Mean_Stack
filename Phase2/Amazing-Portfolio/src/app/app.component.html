@@ -1,6 +1,29 @@
 <div>
   <!-- data from child's addUserEvent event is sent to parent's addUser() function -->
-  <app-sign-up *ngIf="isSignUp" (addUserEvent)="addUser($event)" (loginEvent)="login($event)"></app-sign-up>
-  <app-login *ngIf="isLogin" (signupEvent)="signup($event)" (validateUserEvent)="validateUser($event)" ></app-login>
-  <app-portfolio *ngIf="isPortfolio" [userInfo]="currentUserInfo" [contactList]="currentUserContactList" (addContactEvent)="addContact($event)" (logoutEvent)="logout($event)"></app-portfolio>
+  <app-dashboard 
+    *ngIf="isDashboard"
+    (loginEvent)="login($event)"
+    (signupEvent)="signup($event)">
+  </app-dashboard>
+  
+  <app-sign-up 
+    *ngIf="isSignUp" 
+    (addUserEvent)="addUser($event)" 
+    (loginEvent)="login($event)">
+  </app-sign-up>
+
+  <app-login 
+    *ngIf="isLogin" 
+    [isFailLogin]="isFailedLogin"
+    (signupEvent)="signup($event)" 
+    (validateUserEvent)="validateUser($event)" >
+  </app-login>
+
+  <app-portfolio 
+    *ngIf="isPortfolio" 
+    [userInfo]="currentUserInfo" 
+    [contactList]="currentUserContactList" 
+    (addContactEvent)="addContact($event)" 
+    (logoutEvent)="logout($event)">
+  </app-portfolio>
 </div>

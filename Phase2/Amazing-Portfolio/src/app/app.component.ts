@@ -11,8 +11,10 @@ export class AppComponent {
   title = 'Amazing-Portfolio';
 
   isSignUp: boolean = false;  //set to true
-  isLogin: boolean = true;
+  isLogin: boolean = false;
   isPortfolio: boolean = false;  //set to false
+  isDashboard: boolean = true;
+  isFailedLogin: boolean = false;
 
   usersArray: Array<User> = [];
   contactsMap: Map<string, Array<Contact>> = new Map();
@@ -48,7 +50,7 @@ export class AppComponent {
   }
 
   // given the login details, check if they exist in the 
-  validateUser(loginUser: User) {
+  validateUser(loginUser: User):boolean {
     console.log("login info: " + loginUser.username + loginUser.password);
 
     // given a User, check if that User's username matches the username from Login
@@ -64,13 +66,15 @@ export class AppComponent {
       this.isSignUp = false;
       this.isLogin = false;
       this.isPortfolio = true;
+      return true;
 
     }
     // else, usernames or passwords don't match
     //reset form and give warning
     else {
       console.log("login fialed");
-      // return false;
+      this.isFailedLogin = true;
+      return false;
     }
 
 
@@ -82,13 +86,15 @@ export class AppComponent {
     this.currentUserContactList = [];
     this.isPortfolio = !bool;
     this.isSignUp = !bool;
-    this.isLogin = bool;
+    this.isLogin = !bool;
+    this.isDashboard = bool;
   }
 
   login(bool: boolean) {
     this.isPortfolio = !bool;
     this.isSignUp = !bool;
     this.isLogin = bool;
+    this.isDashboard = !bool;
   }
 
   // given true, hide portfolio and login. show signup
@@ -96,5 +102,6 @@ export class AppComponent {
     this.isPortfolio = !bool;
     this.isSignUp = bool;
     this.isLogin = !bool;
+    this.isDashboard = !bool;
   }
 }
