@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { User } from '../User.model';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +8,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  // send data from child to parent
+  @Output() signupEvent = new EventEmitter<boolean>();
+  @Output() validateUserEvent = new EventEmitter<User>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  loginRef = new FormGroup({
+    username: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required]),
+  });
+
+  signup() {
+    this.signupEvent.emit(true);
+  }
+
+  validateLogin() {
+    let loginUser: User = {
+      firstname: "",
+      lastname: "",
+      username: this.loginRef.value.username,
+      password: this.loginRef.value.password,
+    }
+    this.validateUserEvent.emit(loginUser);
+    this.loginRef.reset();
   }
 
 }

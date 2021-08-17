@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from './User.model';
 import { Contact } from './Contact.model';
 
@@ -11,13 +11,13 @@ export class AppComponent {
   title = 'Amazing-Portfolio';
 
   isSignUp: boolean = false;  //set to true
-  isLogin: boolean = false;
-  isPortfolio: boolean = true;  //set to false
+  isLogin: boolean = true;
+  isPortfolio: boolean = false;  //set to false
 
   usersArray: Array<User> = [];
-  contactsMap: Map<string, Array<Contact> > = new Map();
+  contactsMap: Map<string, Array<Contact>> = new Map();
   // should set v to ""
-  currentUserInfo: User = { firstname: "Kelsy", lastname: "Lee", username: "klee", password: "klee" };
+  currentUserInfo: User = { firstname: "", lastname: "", username: "", password: "" };
   currentUserContactList: Array<Contact> = [];
 
   // given a User object from the sign-up component, push to usersArray.
@@ -26,6 +26,7 @@ export class AppComponent {
     this.usersArray.push(newUser);      //push new user to list of users
     console.log("usersArray is now size: " + this.usersArray.length);
     this.isSignUp = false;              //hide signup component
+    this.isLogin = false;
     this.isPortfolio = true;            //show portfolio component
     this.currentUserInfo = newUser;
   }
@@ -40,15 +41,60 @@ export class AppComponent {
     } else {
       console.log("create a new contact");
       let contactArray = [newContact];
-      this.contactsMap.set(this.currentUserInfo.username, contactArray); 
+      this.contactsMap.set(this.currentUserInfo.username, contactArray);
     }
     //set currentUserContactList to the array of contacts associated with currentUser
     this.currentUserContactList = this.contactsMap.get(this.currentUserInfo.username) || [];
   }
-  
+
+  // given the login details, check if they exist in the 
+  validateUser(loginUser: User) {
+    console.log("login info: " + loginUser.username + loginUser.password);
+
+    // given a User, check if that User's username matches the username from Login
+    function findUser(user: User) {
+      return user.username == loginUser.username;
+    }
+
+    // if username is found in usersArray and passwords match
+    // set currentuser to the login info and go to component
+    if (this.usersArray.find(findUser) != undefined && this.usersArray.find(findUser)?.password == loginUser.password) {
+      console.log("login izza match");
+      this.currentUserInfo = this.usersArray.find(findUser) || { firstname: "", lastname: "", username: "", password: "" };
+      this.isSignUp = false;
+      this.isLogin = false;
+      this.isPortfolio = true;
+
+    }
+    // else, usernames or passwords don't match
+    //reset form and give warning
+    else {
+      console.log("login fialed");
+      // return false;
+    }
+
+
+  }
+
   // given true (will always be given true), hide portfolio and show login page
   logout(bool: boolean) {
+    this.currentUserInfo = { firstname: "", lastname: "", username: "", password: "" };
+    this.currentUserContactList = [];
     this.isPortfolio = !bool;
+    this.isSignUp = !bool;
     this.isLogin = bool;
+  }
+
+  login(bool: boolean) {
+    this.isPortfolio = !bool;
+    this.isSignUp = !bool;
+    this.isLogin = bool;
+  }
+
+  // given true, hide portfolio and login. show signup
+  signup(bool: boolean) {
+    this.isPortfolio = !bool;
+    this.isSignUp = bool;
+    this.isLogin = !bool;
   }
 }

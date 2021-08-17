@@ -11,7 +11,7 @@ import { User } from '../User.model';
 export class SignUpComponent implements OnInit {
 
   // @Output() signUpEvent = new EventEmitter<boolean>();
-
+  @Output() loginEvent = new EventEmitter<boolean>();
   @Output() addUserEvent = new EventEmitter<User>();
 
   constructor() { }
@@ -33,6 +33,10 @@ export class SignUpComponent implements OnInit {
     return this.signupRef.value.password == this.signupRef.value.password2;
   }
 
+  // go to login page
+  login() {
+    this.loginEvent.emit(true);
+  }
 
   // can only register if all fields are filled out and passwords match
   // save signup info into session storage
@@ -48,7 +52,7 @@ export class SignUpComponent implements OnInit {
       username: this.signupRef.value.username,
       password: this.signupRef.value.password
     };
-    
+
     this.addUserEvent.emit(newUser);  //send User object to app.component.html
     this.signupRef.reset();           //reset form
   }

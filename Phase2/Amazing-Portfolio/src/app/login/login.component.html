@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div>
+    <h1 style="text-align: center; color:#391306">Log In</h1>
+    <div class="brown-box">
+        <!-- <form [formGroup]="signupRef" (ngSubmit)="registerUser()"> -->
+        <form [formGroup]="loginRef">
+            <label>Username: </label>
+            <input type="text" formControlName="username" />
+            <br /><br />
+            <label>Enter Password: </label>
+            <input type="password" formControlName="password" />
+            <br /><br />
+
+            <button type="button" class="btn btn-outline-light" style="margin: 10px;" (click)="signup()" >Sign Up</button>
+            <button type="submit" class="btn btn-outline-light" style="margin: 10px;" (click)="validateLogin()" >Log In</button>
+        </form>
+    </div>
+</div>

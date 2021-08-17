@@ -2,7 +2,7 @@
     <h1 style="text-align: center;">Sign Up</h1>
 
     <!-- <button>Login</button> -->
-    <div class="boxed">
+    <div class="red-box">
         <form [formGroup]="signupRef" (ngSubmit)="registerUser()">
             <label>First Name: </label>
             <input type="text" formControlName="firstName" /> 
@@ -20,8 +20,9 @@
             <input type="password" formControlName="password2" />
             <br/><br/>
 
-            <button type="submit" [disabled]="signupRef.invalid || !checkPassword()">Register</button>
-            <button type="reset">Reset</button>
+            <button type="button" class="btn btn-outline-light" style="margin: 10px;" (click)="login()" >Login</button>
+            <button type="submit" class="btn btn-outline-light" style="margin: 10px;" [disabled]="signupRef.invalid || !checkPassword()">Register</button>
+            <button type="reset" class="btn btn-outline-light" style="margin: 10px;" >Reset</button>
 
         </form>
     </div>
