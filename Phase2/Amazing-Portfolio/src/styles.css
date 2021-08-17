@@ -10,7 +10,7 @@ div{
 
 .red-box{
     background-color: #AA1945;
-    margin: 10%;
+    margin: 3% 10% 3% 10%;
     padding:20px;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@ div{
 
 .brown-box{
     background-color: #391306;
-    margin: 10%;
+    margin: 3% 10% 3% 10%;;
     padding: 20px;
     display: flex;
     flex-direction: column;
