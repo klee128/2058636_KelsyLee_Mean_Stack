@@ -1,0 +1,6 @@
+div{
+    background-color: #B57BA6; 
+    display: flex;
+    flex-direction: column; 
+    align-items:center;
+}
