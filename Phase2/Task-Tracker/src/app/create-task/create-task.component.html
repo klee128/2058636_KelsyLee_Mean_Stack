@@ -1,0 +1,32 @@
+<div>
+    <h1>display task form</h1>
+
+    <form #taskRef="ngForm" (ngSubmit)="submitTask(taskRef)">
+        Employee ID:
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Employee ID" name="eID" ngModel>
+        </mat-form-field>
+        <br/>
+        Name:
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Name" name="name" ngModel/>
+        </mat-form-field>
+        <br/>
+        Task: 
+        <mat-form-field>
+            <textarea matInput placeholder="Task" style="vertical-align: top;" name="task" ngModel></textarea>
+        </mat-form-field>
+        <br/>
+        Deadline:
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" name="date" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
+        <br/>
+        <button type="submit" mat-stroked-button color="primary" style='margin:5px;'>Submit</button>
+        <button type="reset"mat-stroked-button color="primary" style='margin:5px;'>Reset</button>
+    </form>
+</div>
