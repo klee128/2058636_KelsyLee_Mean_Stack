@@ -19,12 +19,8 @@ export class CreateTaskComponent implements OnInit {
   }
 
   submitTask(taskRef:NgForm) {
-    console.log(taskRef.value.eID + "" + taskRef.value.name + "" + taskRef.value.task + " " + taskRef.value.date);
-
     function isNum(input: string): boolean {
-      console.log("input is: " + input)
       if (!Number.isNaN(Number(input))) {
-        console.log("is a number :))");
         return true;
       }
       return false;
@@ -36,12 +32,9 @@ export class CreateTaskComponent implements OnInit {
       this.taskArray.push(newTask);
       taskRef.reset();
     } else {
-      console.log("employee id needs to be a number");
       this.displayeIdMsg = true;
+      taskRef.reset();
     }
-    
-   
-    console.log(this.taskArray.length);
   }
 
 }
