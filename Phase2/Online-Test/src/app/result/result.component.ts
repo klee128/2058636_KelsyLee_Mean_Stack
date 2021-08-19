@@ -11,6 +11,7 @@ import { QuestionService } from '../question.service';
 export class ResultComponent implements OnInit {
   myQuestions: Observable<Question[]>;
   myAnswers: Array<string> = [];
+  numCorrect: number = 0;
   
   constructor(public qSer: QuestionService) {
     this.myQuestions = qSer.getQuestions();
@@ -19,9 +20,22 @@ export class ResultComponent implements OnInit {
   ngOnInit(): void {
     this.myQuestions.subscribe(allQuestions => {
       for (let qq of allQuestions) {
-        this.myAnswers.push(sessionStorage.getItem(qq.question) || "");
+        let ans = sessionStorage.getItem(qq.question) || "";
+        this.myAnswers.push(ans);
+        this.checkAnswer(ans, qq.correctAns);
       }
     })
+  }
+
+  checkAnswer(submitA: string, correctA: string): boolean{
+    console.log("submitted " + submitA + " correct is " + correctA);
+    if (submitA != correctA) {
+      console.log('incorrect');
+      return false;
+    }
+    this.numCorrect += 1;
+    console.log("correct");
+    return true;
   }
 
 }

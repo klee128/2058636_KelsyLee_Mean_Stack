@@ -3,8 +3,7 @@
     <hr/>
     <div *ngFor="let q of myQuestions | async; index as i">
         <span>{{q.question}}</span>
-        <div *ngIf="q.correctAns != myAnswers[i]">
-            <!-- <br/> -->
+        <div *ngIf="myAnswers[i] != q.correctAns">
             <span style="color: red;">{{myAnswers[i]}}</span>
         </div>
         <br/>
@@ -12,6 +11,9 @@
         <br/>
         <br/>
     </div>
+    <span>Total Correct: {{numCorrect}}</span>
+    <span *ngIf="numCorrect/myAnswers.length >= 0.6"> Pass </span>
+    <span *ngIf="numCorrect/myAnswers.length < 0.6"> Fail </span>
     <hr/>
     <a routerLink="/quiz">Quiz</a>
 </div>
