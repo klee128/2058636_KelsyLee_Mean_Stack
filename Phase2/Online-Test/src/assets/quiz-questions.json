@@ -1,0 +1,18 @@
+[
+    {
+        "question":"Which month is the shortest in the year?",
+        "ans1": "May",
+        "ans2": "Feburary",
+        "ans3": "October",
+        "ans4": "July",
+        "correctAns":"Feburary"
+    },
+    {
+        "question": "What product do bees create?",
+        "ans1": "Ribs",
+        "ans2": "Donut",
+        "ans3": "Miso",
+        "ans4": "Honey",
+        "correctAns": "Honey"
+    }
+]
