@@ -30,7 +30,6 @@ export class QuizComponent implements OnInit {
         this.myAnswers.push(sessionStorage.getItem(qq.question) || "");
       }
     })
-    console.log(this.myAnswers);
   }
 
 
