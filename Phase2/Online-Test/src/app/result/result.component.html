@@ -1,4 +1,17 @@
 <div>
     <h1>Result Component</h1>
+    <hr/>
+    <div *ngFor="let q of myQuestions | async; index as i">
+        <span>{{q.question}}</span>
+        <div *ngIf="q.correctAns != myAnswers[i]">
+            <!-- <br/> -->
+            <span style="color: red;">{{myAnswers[i]}}</span>
+        </div>
+        <br/>
+        <span style='color:green'>{{q.correctAns}}</span>
+        <br/>
+        <br/>
+    </div>
+    <hr/>
     <a routerLink="/quiz">Quiz</a>
 </div>

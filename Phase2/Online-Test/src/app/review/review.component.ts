@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+import { Question } from '../question';
+import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-review',
@@ -7,9 +12,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewComponent implements OnInit {
 
-  constructor() { }
+  myQuestions: Observable<Question[]>;
+  myAnswers: Array<string> = [];
+  
+  constructor(public qSer: QuestionService) {
+    this.myQuestions = qSer.getQuestions();   //dynamically create the array of questions
+  }
 
   ngOnInit(): void {
+    this.myQuestions.subscribe(allQuestions => {
+      for (let qq of allQuestions) {
+        this.myAnswers.push(sessionStorage.getItem(qq.question) || "");
+      }
+    })
   }
 
 }

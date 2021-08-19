@@ -8,6 +8,8 @@ const routes: Routes = [
   { path: "quiz", component: QuizComponent },
   { path: "result", component: ResultComponent },
   { path: "review", component: ReviewComponent },
+  // { path: "", component: QuizComponent }
+  
   
   { path: "", redirectTo: "quiz", pathMatch: "full" }
 ];

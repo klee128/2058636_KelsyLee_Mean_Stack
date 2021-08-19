@@ -1,5 +1,12 @@
 <div>
     <h1>Review Component</h1>
+    <hr/>
+    <div *ngFor="let q of myQuestions | async; index as i">
+        <p>{{q.question}}</p>
+        <p>{{myAnswers[i]}}</p>
+        <br/>
+    </div>
+    <hr/>
     <a routerLink="/quiz">Quiz</a>
     <a routerLink="/result">Result</a>
 </div>

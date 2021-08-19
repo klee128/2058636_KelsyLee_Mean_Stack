@@ -14,5 +14,69 @@
         "ans3": "Miso",
         "ans4": "Honey",
         "correctAns": "Honey"
+    },
+    {
+        "question": "Apart from cheese and tomato, what other two toppings are usually there on a Hawaiian Pizza?",
+        "ans1": "Pineapple and Ham",
+        "ans2": "Broccoli and Egg",
+        "ans3": "Clams and Anchovies",
+        "ans4": "Strawberry and Bacon",
+        "correctAns": "Pineapple and Ham"
+    },
+    {
+        "question": "Which kind of ‘bulbs’ were once exchanged as a form of currency?",
+        "ans1": "Ligh Bulbs",
+        "ans2": "Bulbul Birds",
+        "ans3": "Bulbasaurs",
+        "ans4": "Tulip Bulbs",
+        "correctAns": "Tulip Bulbs"
+    },
+    {
+        "question": "Which planet is the smallest: Neptune, Mars, Mercury, Venus?",
+        "ans1": "Neptune",
+        "ans2": "Mars",
+        "ans3": "Mercury",
+        "ans4": "Venus",
+        "correctAns": "Mercury"
+    },
+    {
+        "question": "Which shape has the most sides—square, triangle, octagon, and hexagon?",
+        "ans1": "Square",
+        "ans2": "Octagon",
+        "ans3": "Triangle",
+        "ans4": "Hexagon",
+        "correctAns": "Octagon"
+    },
+    {
+        "question": "On a farm, what is a kid?",
+        "ans1": "Baby goat",
+        "ans2": "Baby duck",
+        "ans3": "Baby cow",
+        "ans4": "Baby pig",
+        "correctAns": "Baby goat"
+    },
+    {
+        "question": "How many colors are in a rainbow?",
+        "ans1": "6",
+        "ans2": "7",
+        "ans3": "8",
+        "ans4": "9",
+        "correctAns": "7"
+    },
+    {
+        "question": "In which capital city of Europe would you find the Eiffel Tower?",
+        "ans1": "Moscow",
+        "ans2": "London",
+        "ans3": "Berlin",
+        "ans4": "Paris",
+        "correctAns": "Paris"
+    },
+    {
+        "question": "What is a prune?",
+        "ans1": "Dried pear",
+        "ans2": "Dried peach",
+        "ans3": "Dried plum",
+        "ans4": "Dried plantain",
+        "correctAns": "Dried plum"
     }
 ]
