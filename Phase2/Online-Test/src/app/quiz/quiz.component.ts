@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 export class QuizComponent implements OnInit {
   myForm: FormGroup;
   myQuestions: Observable<Question[]>;
+  myAnswers: Array<string> = [];
 
   constructor(public qSer: QuestionService, public form: FormBuilder, private router:Router) {//DI for QuestionService and FormBuilder
     this.myForm = form.group({});              //dynamically create a form
@@ -26,16 +27,19 @@ export class QuizComponent implements OnInit {
     this.myQuestions.subscribe(allQuestions => {
       for (let qq of allQuestions) {
         this.myForm?.addControl(qq.question, this.form.control(""))
+        this.myAnswers.push(sessionStorage.getItem(qq.question) || "");
       }
     })
+    console.log(this.myAnswers);
   }
+
+
 
   // on submitting quiz, send data and redirect to review 
   submitQ(): void {
-    console.log("submit quiz");
+    // for each question, store Q+A in sessionStorage
     this.myQuestions.subscribe(allQuestions => {
       for (let qq of allQuestions) {
-        console.log(this.myForm.value[qq.question]);
         sessionStorage.setItem(qq.question, this.myForm.value[qq.question]);
       }
     })

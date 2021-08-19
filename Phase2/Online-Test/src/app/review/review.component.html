@@ -1,12 +1,16 @@
 <div>
-    <h1>Review Component</h1>
-    <hr/>
-    <div *ngFor="let q of myQuestions | async; index as i">
-        <p>{{q.question}}</p>
-        <p>{{myAnswers[i]}}</p>
-        <br/>
-    </div>
-    <hr/>
-    <a routerLink="/quiz">Quiz</a>
-    <a routerLink="/result">Result</a>
+    <div class="quiz-header">Review Quiz Answers</div>
+
+    <div class="quiz-body" style="background-color: #F7C9B6;">
+        <!-- for each question, display question and submitted answer -->
+        <div *ngFor="let q of myQuestions | async; index as i">
+            <span style="font-size: larger;">{{q.question}}</span>
+            <p>Your Answer: {{myAnswers[i]}}</p>
+            <br/>
+        </div>
+        <hr/>
+        <button type="button" mat-raised-button style="background-color:#DBC39A; margin: 10px;" (click)="gotoQuiz()">Back to Quiz</button>
+        <button type="button" mat-raised-button style="background-color:#DBC39A; margin: 10px;" (click)="gotoResult()">Show Result</button>
+    </div>  
+
 </div>

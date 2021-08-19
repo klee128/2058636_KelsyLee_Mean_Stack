@@ -2,3 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.quiz-header{
+    background-color: #DBC39A;
+    text-align: center;
+    padding: 20px;
+    font-size: xx-large;
+}
+
+.quiz-body{
+    padding: 30px;
+}

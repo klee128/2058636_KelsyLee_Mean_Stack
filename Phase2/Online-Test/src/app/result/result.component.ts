@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Question } from '../question';
 import { QuestionService } from '../question.service';
@@ -13,7 +14,7 @@ export class ResultComponent implements OnInit {
   myAnswers: Array<string> = [];
   numCorrect: number = 0;
   
-  constructor(public qSer: QuestionService) {
+  constructor(public qSer: QuestionService, private router: Router) {
     this.myQuestions = qSer.getQuestions();
   }
 
@@ -28,14 +29,14 @@ export class ResultComponent implements OnInit {
   }
 
   checkAnswer(submitA: string, correctA: string): boolean{
-    console.log("submitted " + submitA + " correct is " + correctA);
     if (submitA != correctA) {
-      console.log('incorrect');
       return false;
     }
     this.numCorrect += 1;
-    console.log("correct");
     return true;
   }
 
+  gotoQuiz() {
+    this.router.navigate(['/quiz']);
+  }
 }

@@ -2,10 +2,10 @@
     {
         "question":"Which month is the shortest in the year?",
         "ans1": "May",
-        "ans2": "Feburary",
+        "ans2": "February",
         "ans3": "October",
         "ans4": "July",
-        "correctAns":"Feburary"
+        "correctAns":"February"
     },
     {
         "question": "What product do bees create?",
@@ -25,7 +25,7 @@
     },
     {
         "question": "Which kind of ‘bulbs’ were once exchanged as a form of currency?",
-        "ans1": "Ligh Bulbs",
+        "ans1": "Light Bulbs",
         "ans2": "Bulbul Birds",
         "ans3": "Bulbasaurs",
         "ans4": "Tulip Bulbs",

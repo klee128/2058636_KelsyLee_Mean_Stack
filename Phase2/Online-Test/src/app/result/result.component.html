@@ -1,19 +1,28 @@
 <div>
-    <h1>Result Component</h1>
-    <hr/>
-    <div *ngFor="let q of myQuestions | async; index as i">
-        <span>{{q.question}}</span>
-        <div *ngIf="myAnswers[i] != q.correctAns">
-            <span style="color: red;">{{myAnswers[i]}}</span>
+    <div class="quiz-header">Quiz Results</div>
+    
+    <div class="quiz-body" style="background-color: #DACAC4;">
+        <!-- for each question ...  -->
+        <div *ngFor="let q of myQuestions | async; index as i">
+            <!-- display question -->
+            <span style="font-size: larger;">Question {{i+1}}: {{q.question}}</span>
+            <br/>
+            <!-- if answered wrong, display submitted answer in red -->
+            <div *ngIf="myAnswers[i] != q.correctAns">
+                <span style="color: red;" *ngIf="myAnswers[i] == '' ">Your answer: No answer provided</span>
+                <span style="color: red;" *ngIf="myAnswers[i] != '' ">Your answer: {{myAnswers[i]}}</span>
+            </div>
+            <!-- display correct answer -->
+            <span style='color:green'>Correct answer: {{q.correctAns}}</span>
+            <br/>
+            <br/>
         </div>
-        <br/>
-        <span style='color:green'>{{q.correctAns}}</span>
-        <br/>
-        <br/>
+        <!-- display total score and pass/no pass -->
+        <span>Total Correct: {{numCorrect}}</span> <br/>
+        <span style="font-size: larger; color:green" *ngIf="numCorrect/myAnswers.length >= 0.6"> You Passed! </span>
+        <span style="font-size: larger; color:red" *ngIf="numCorrect/myAnswers.length < 0.6"> You Failed </span>
+        <hr/>
+        <button type="button" mat-raised-button style="background-color:#DBC39A; margin: 10px;" (click)="gotoQuiz()">Back to Quiz</button>
     </div>
-    <span>Total Correct: {{numCorrect}}</span>
-    <span *ngIf="numCorrect/myAnswers.length >= 0.6"> Pass </span>
-    <span *ngIf="numCorrect/myAnswers.length < 0.6"> Fail </span>
-    <hr/>
-    <a routerLink="/quiz">Quiz</a>
+
 </div>

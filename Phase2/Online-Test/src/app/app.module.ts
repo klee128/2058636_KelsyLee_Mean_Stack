@@ -6,6 +6,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { ResultComponent } from './result/result.component';
     MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
