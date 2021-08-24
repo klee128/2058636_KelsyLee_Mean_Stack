@@ -1,1 +1,4 @@
-[{"firstName":"first","lastName":"thing","email":"first@mail.com","timestamp":"2021-08-23T19:57:41.330Z"},{"firstName":"second","lastName":"thing","email":"second@thing.com","timestamp":"2021-08-23T19:59:13.485Z"},{"firstName":"kelsy","lastName":"lee","email":"klee@mail.com","timestamp":"2021-08-23T20:11:18.751Z"},{"firstName":"k","lastName":"l","email":"k@l.com","timestamp":"2021-08-23T20:12:08.182Z"},{"firstName":"Kelsy","lastName":"Lee","email":"klesy@gmail.com","timestamp":"2021-08-23T20:31:36.421Z"}]
+[
+    {"firstName":"first","lastName":"thing","email":"first@mail.com","timestamp":"2021-08-23T19:57:41.330Z"},
+    {"firstName":"second","lastName":"name","email":"second@name.com","timestamp":"2021-08-24T18:27:47.936Z"}
+]
