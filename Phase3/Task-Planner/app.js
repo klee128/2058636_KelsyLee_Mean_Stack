@@ -1,9 +1,13 @@
 let http = require('http');  //create a server webpage
 let fs = require('fs');     //allow file manipulation
-let url = require('url')   //allow app to use url 
+let url = require('url')   //allow app to parse url 
 
+let titleHtml = `
+    <h1 style="text-align:center">Task Planner</h1>
+`
 
 let addTaskHtml = `
+    <h3>Add Task</h3>
     <form action="addTask">
         <label>Employee ID</label>
         <input type="text" name="eid" required/>
@@ -27,9 +31,10 @@ let duplicateTIDhtml = `
 let duplicateTIDbool = false;
 
 let deleteTaskHtml = `
+    <h3>Delete Task</h3>
     <form action="deleteTask">
         <label>Task ID</label>
-        <input type="text" name="tid"/>
+        <input type="text" name="tid" required/>
         <button type="submit">Delete Task</button>
     </form>
 `;
@@ -56,15 +61,14 @@ let tableEnd = `
     </table>
 `;
 
-
+// set up paths
 let server = http.createServer((request, response) => {
     response.writeHead(200, { "content-type": "text/html" })
     let urlInfo = url.parse(request.url, true);
-    console.log(urlInfo.path);
     if (urlInfo.path != "/favicon.ico") {
+        // localhost:9090
         if (urlInfo.pathname == "/") {
-            response.writeHead(200, { "content-type": "text/html" })
-            response.write("Placeholder");
+            response.write(titleHtml);
             response.write(addTaskHtml);
             response.write(`<hr />`);
             response.write(deleteTaskHtml);
@@ -74,19 +78,16 @@ let server = http.createServer((request, response) => {
         }
         // if addTask form submitted
         else if (urlInfo.pathname == "/addTask") {
-            // if tasks.json exists... 
+            // if tasks.json file exists... 
             if (fs.existsSync('tasks.json')) {
                 let taskArray = JSON.parse(fs.readFileSync('tasks.json').toString());
                 let etask = taskArray.find(t => t.tid == urlInfo.query.tid);
                 // if task ID exists in tasks.json
                 if (etask != undefined) {
-                    console.log("task ID already exists");
-                    // response.write(duplicateTIDhtml);
                     duplicateTIDbool = true;
                 }
                 // if task ID doesn't exist in tasks.json
                 else {
-                    console.log("task ID doesn't exist yet. add task");
                     duplicateTIDbool = false;
                     taskArray.push({
                         eid: urlInfo.query.eid,
@@ -96,9 +97,8 @@ let server = http.createServer((request, response) => {
                     });
                     fs.writeFileSync('tasks.json', JSON.stringify(taskArray));
                 }
-                // console.log("tasks are: " + taskArray);
             }
-            // if tasks.json doesn't exist... 
+            // if tasks.json doesn't exist, create it
             else {
                 fs.writeFileSync('tasks.json', JSON.stringify([{
                     eid: urlInfo.query.eid,
@@ -107,8 +107,7 @@ let server = http.createServer((request, response) => {
                     deadline: urlInfo.query.deadline
                 }]));
             }
-            
-            response.write("add task");
+            response.write(titleHtml);
             response.write(addTaskHtml);
             if (duplicateTIDbool) response.write(duplicateTIDhtml);
             response.write(`<hr/>`);
@@ -118,24 +117,23 @@ let server = http.createServer((request, response) => {
         }
         // if deleteTask form submitted
         else if (urlInfo.pathname == "/deleteTask"){
-            response.writeHead(200, { "content-type": "text/html" })
             if (fs.existsSync('tasks.json')) {
                 let taskArray = JSON.parse(fs.readFileSync('tasks.json').toString());
                 let taskIdx = taskArray.findIndex(t => t.tid == urlInfo.query.tid);
                 
                 if (taskIdx != -1) {
                     deleteFailBool = false;
-                    console.log("task exists ind atabase. delete it" + taskIdx);
                     taskArray.splice(taskIdx, 1);
                     fs.writeFileSync('tasks.json', JSON.stringify(taskArray));
                 }
                 else {
-                    console.log("task not in database. error msg?" + taskIdx);
                     deleteFailBool = true;
                 }
             }
-
-            response.write("delete task");
+            else {
+                deleteFailBool = true;
+            }
+            response.write(titleHtml);
             response.write(addTaskHtml);
             response.write(`<hr/>`);
             response.write(deleteTaskHtml);
@@ -146,9 +144,7 @@ let server = http.createServer((request, response) => {
         }
         // if displayTable button is clicked 
         else if (urlInfo.pathname == "/displayTable") {
-            console.log("display the table");
-            response.writeHead(200, { "content-type": "text/html" })
-            response.write("Placeholder");
+            response.write(titleHtml);
             response.write(addTaskHtml);
             response.write(`<hr />`);
             response.write(deleteTaskHtml);
@@ -183,4 +179,5 @@ let server = http.createServer((request, response) => {
     response.end();
 })
 
+// run server
 server.listen(9090, () => console.log("Server running on port 9090"));
