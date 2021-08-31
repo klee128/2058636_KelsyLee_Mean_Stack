@@ -6,15 +6,7 @@
     <title>Chat with Socket.io</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/JavaScript">
-        var socket = io();
-        // send data to server
-        socket.emit("obj", "Hello Server, I am the Web Socket Client");
-        // receive data from server
-        socket.on("obj1", (msg) => {
-            console.log(msg);
-        })
-    </script>
+    <script src="chat.js"></script>
 </head>
 <body>
     <h1>Temp :)</h1>

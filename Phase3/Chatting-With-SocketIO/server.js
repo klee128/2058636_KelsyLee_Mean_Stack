@@ -8,7 +8,13 @@ let io = require('socket.io')(http);
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/chat.html");
 })
+// so chat.html can use chat.js functions
+app.get("/chat.js", (req, res) => {
+    res.sendFile(__dirname + "/chat.js");
+})
 
+// when transferring data between server and client ... 
+// keep track of data by their keys 
 io.on("connection", (socket) => {
     console.log("Client connected");
     // socket.on("this must match whatever is in script in index.html")
