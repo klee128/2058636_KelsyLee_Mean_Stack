@@ -12,6 +12,9 @@ app.get("/", (req, res) => {
 app.get("/chat.js", (req, res) => {
     res.sendFile(__dirname + "/chat.js");
 })
+app.get("/chat.css", (req, res) => {
+    res.sendFile(__dirname + "/chat.css");
+})
 
 // when transferring data between server and client ... 
 // keep track of data by their keys 
