@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -9,19 +10,23 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="chat.js"></script>
 </head>
+
 <body>
-    <h1 style="text-align: center;">Chatting with Socket.io</h1>
+    <h1 style="text-align: center; color: #FACB80;">Chatting with Socket.io</h1>
     <div class="boxed">
+        <!-- chatlog (user input + server response will be written here) -->
         <div class="chatlogBox" id="chatlog">
-            chatbox
+            <h3 style="text-align: center;">Chat Log</h3>
         </div>
-        <br/>
+        <br />
+        <!-- textfield for user input -->
         <div>
             <label>Your message: </label>
-            <input type="text" id="urMsg"/>
+            <input type="text" id="urMsg" />
             <button type="button" value="Send" onclick="sendMsg()">Send</button>
         </div>
-        
+
     </div>
 </body>
+
 </html>
