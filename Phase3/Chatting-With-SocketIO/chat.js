@@ -1,5 +1,5 @@
 // javascript code for chat.html
-
+//test push
 var socket = io();
 // send data to server
 socket.emit("obj", "Hello Server, I am the Web Socket Client");
