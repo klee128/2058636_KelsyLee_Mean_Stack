@@ -2,7 +2,6 @@
 let express = require("express");
 let bodyParser = require("body-parser"); //used to parse req.body for POST data fields
 let axios = require('axios');
-const { response } = require("express");
 
 // create the reference of express module
 let app = express();
@@ -23,14 +22,14 @@ app.post('/addCourse', (req, res) => {
             res.redirect('http://localhost:9090/')
         })
         .catch((err) => console.log(err));
-})
+});
 
 app.get("/deleteCourse", (req, res) => {
     res.sendFile(__dirname + "/delete_course.html");
 });
 app.post("/deleteCourse", (req, res) => {
     console.log(req.body);
-    let url = "http://localhost:8080/api/course/deleteCourse/"+ req.body._id
+    let url = "http://localhost:8080/api/course/deleteCourse/" + req.body._id
     axios.delete(url)
         .then((response) => {
             console.log(response.data);
@@ -39,12 +38,11 @@ app.post("/deleteCourse", (req, res) => {
         .catch((err) => {
             console.log(err);
         });
-})
+});
 
 app.get("/updateCourse", (req, res) => {
     res.sendFile(__dirname + "/update_course.html");
 });
-
 app.post('/updateCourse', (req, res) => {
     // do axios call to backend put request
     axios.put("http://localhost:8080/api/course/updateCourse", req.body)
@@ -55,7 +53,7 @@ app.post('/updateCourse', (req, res) => {
         .catch((err) => {
             console.log(err);
         });
-})
+});
 
 app.get("/displayCourses", (req, res) => {
     axios.get('http://localhost:8080/api/course/getAllCourses')
@@ -89,7 +87,7 @@ app.get("/displayCourses", (req, res) => {
             res.write(table);
         })
         .catch(err => console.log(err));
-})
+});
 
 
 
