@@ -5,8 +5,9 @@
     <!-- <script src='index.js'></script> -->
 </head>
 <body>
-    Add Course
-    <form action="http://localhost:8080/api/course/addCourse" method="POST">
+    <h1 style="text-align: center;">Add Course</h1>
+
+    <form method="POST">
         Course ID: <input type="number" id="_id" name="_id"/>
         <br/>
         Course Name: <input type="text" id="name" name="name"/>
@@ -19,5 +20,7 @@
         <button type='submit'>Submit</button>
         <input type="reset" value="Reset" />
     </form>
+
+    <a href="/"> Back </a>
 </body>
 </html>

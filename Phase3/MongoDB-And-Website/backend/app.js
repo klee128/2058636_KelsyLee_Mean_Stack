@@ -5,7 +5,6 @@ let cors = require('cors');
 let courseRouter = require('./router/course.router');
 
 let app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

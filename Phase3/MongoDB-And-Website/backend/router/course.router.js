@@ -15,8 +15,8 @@ let router = express.Router();
 // full path: localhost:9090/api/product/[subpath from courseController]
 
 router.post('/addCourse', courseController.addCourseInfo);
-router.post('/deleteCourse', courseController.deleteCourseInfo);
-router.post('/updateCourse', courseController.updateCourseInfo);
+router.delete('/deleteCourse/:cid', courseController.deleteCourseInfo);
+router.put('/updateCourse', courseController.updateCourseInfo);
 router.get('/getAllCourses', courseController.displayAllCourseInfo);
 
 // export all the submaths
