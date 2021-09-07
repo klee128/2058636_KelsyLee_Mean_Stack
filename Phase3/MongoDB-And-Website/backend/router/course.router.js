@@ -4,6 +4,7 @@
 // go to ../controller/course.controller.js for what that HTTP request will do
 
 let express = require('express');
+let bodyParser = require('body-parser');
 let courseController = require('../controller/course.controller');
 
 // create a router referrence from express module
@@ -14,8 +15,8 @@ let router = express.Router();
 // full path: localhost:9090/api/product/[subpath from courseController]
 
 router.post('/addCourse', courseController.addCourseInfo);
-router.delete('/deleteCourse/:cid', courseController.deleteCourseInfo);
-router.put('/updateCourse', courseController.updateCourseInfo);
+router.post('/deleteCourse', courseController.deleteCourseInfo);
+router.post('/updateCourse', courseController.updateCourseInfo);
 router.get('/getAllCourses', courseController.displayAllCourseInfo);
 
 // export all the submaths

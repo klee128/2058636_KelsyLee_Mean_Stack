@@ -1,6 +1,7 @@
 #ignore these files when committing
 *.zip
 *.docx
+*.lnk
 *.pdf
 *.pptx
 node_modules/

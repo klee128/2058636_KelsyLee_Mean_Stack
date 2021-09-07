@@ -8,6 +8,7 @@ let app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 let url = 'mongodb://localhost:27017/CourseRecords';
 
@@ -16,7 +17,7 @@ mongoose.connect(url)
     .catch(err => console.log(err));
 
 // any url with the path "/api/course", further subpaths can be found in courseRouter
-// look in ./controller/course.controller.js
+// look in ./router/course.router.js
 app.use('/api/course', courseRouter);
 
 app.listen(8080, () => console.log("Server is running on port 8080"));

@@ -10,12 +10,15 @@
 </head>
 <body>
     Update Course
-    <form>
-        Course ID: <input type="number" name="courseID"/>
+    <!-- <form> -->
+    <form action="http://localhost:8080/api/course/updateCourse" method="POST">
+        Course ID: <input type="number" name="_id" id='_id'/>
         <br/>
-        Max Students: <input type="number" name="maxStudents"/>
+        Max Students: <input type="number" name="maxStudents" id='maxStudents'/>
         <br/>
-        <input type="submit" value="Submit"/>
+        <!-- <input type="submit" value="Submit"/> -->
+        <button type="submit" id="submitbutton">Submit</button>
     </form>
+    <!-- <script src='./call_http.js'></script> -->
 </body>
 </html>

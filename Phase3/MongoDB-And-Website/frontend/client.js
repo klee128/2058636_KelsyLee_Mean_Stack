@@ -1,13 +1,15 @@
 // load the module
 let express = require("express");
 let bodyParser = require("body-parser"); //used to parse req.body for POST data fields
+let axios = require('axios');
+
+let methodOverride = require('method-override');
 
 // create the reference of express module
 let app = express();
 app.use(bodyParser.urlencoded({ extended: true })); // enable receiving POST data from normal HTML form
+app.use(methodOverride('_method'))
 
-// array to store userDetails
-let userDetails = [];
 
 // app.get("path", callback request)
 app.get("/", (req, res) => {
@@ -28,43 +30,41 @@ app.get("/updateCourse", (req, res) => {
 });
 
 app.get("/displayCourses", (req, res) => {
-    res.sendFile(__dirname + "/display_courses.html");
+    // res.sendFile(__dirname + "/display_courses.html");
+    axios.get('http://localhost:8080/api/course/getAllCourses')
+        .then((response) => {
+            let table = `
+            <table border=1>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Course Description</th>
+                    <th>Max Students</th>
+                <tr>
+            `;
+            let courses = response.data;
+            courses.forEach(element => {
+                table = table + `
+                    <tr>
+                        <td>${element._id}</td>
+                        <td>${element.name}</td>
+                        <td>${element._description}</td>
+                        <td>${element.maxStudents}</td>
+                    </tr>
+                `
+            });
+
+            table = table + `</table>`;
+
+            res.write(table);
+            // console.log(response.data)
+        })
+        .catch(err => console.log(err));
 })
 
-// on login formSubmit, do get request to http://.../checkUser
-// app.get("/checkUser", (req, res) => {
-//     // access data from URL through req.query.data_name
-//     let user = req.query.user;
-//     let pass = req.query.pass;
-//     let found = userDetails.find(u => u.uname == user && u.pname == pass);
-//     if (found != undefined) {
-//         res.send("Successful login");
-//     } else {
-//         res.send("Failed Login");
-//     }
-// })
+app.get('/call_http.js', (req, res) => {
+    res.sendFile(__dirname + "/call_http.js");
+})
 
-
-
-// when form is submitted and no HTTP method is specified, default is GET
-// form data will be displayed through URL
-// form data is passed through http RESPONSE.query.formFieldName
-// app.get("/register", (req, res) => {
-//     res.send("post method worked");
-// })
-
-// when form is submitted (if method="POST" is specified), do this instead
-// form data will NOT be displayed through URL
-// form data is passed through http REQUEST.body
-// app.post("/register", (req, res) => {
-//     // require body-parser
-//     // app.use(body-parser.urlEncoded... )
-//     // now can parse through request.body
-//     let userDeet = req.body;
-//     userDetails.push(userDeet);
-//     // console.log(userDeet);
-//     // res.write("Account created successfully");
-//     res.sendFile(__dirname + "/login.html");    //send to login page
-// })
 
 app.listen(9090, () => console.log("Server is running on port 9090"));

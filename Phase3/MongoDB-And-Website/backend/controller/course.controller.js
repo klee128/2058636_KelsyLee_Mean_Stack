@@ -8,23 +8,31 @@ let courseModel = require('../model/course.model');
 
 let addCourseInfo = (request, response) => {
     let course = request.body;
+    console.log("course info is: ");
+    console.log(course);
     courseModel.insertMany(course, (err, result) => {
         if (!err) {
-            response.send(result);
+            response.redirect('http://localhost:9090/')
+            // response.send(result);
         }
         else {
             response.send(err);
         }
     })
+    
 }
 
 let deleteCourseInfo = (request, response) => {
     // courseID found in url
-    let cid = request.params.cid;
-    courseModel.deleteOne({ _id: cid }, (err, result) => {
+    // let cid = request.params.courseID;
+    let course = request.body;
+    console.log("course info is ");
+    console.log(course);
+    courseModel.deleteOne({ _id: course._id }, (err, result) => {
         if (!err) {
             // will need to look into this more for a more specific success message
-            response.send(result);
+            // response.send(result);
+            response.redirect('http://localhost:9090/')
         }
         else {
             response.send(err);
@@ -34,9 +42,11 @@ let deleteCourseInfo = (request, response) => {
 
 let updateCourseInfo = (request, response) => {
     let course = request.body;
+    console.log(course);
     courseModel.updateOne({ _id: course._id }, { $set: { maxStudents: course.maxStudents } }, (err, result) => {
         if (!err) {
-            response.send(result);
+            // response.send(result);
+            response.redirect('http://localhost:9090/')
         }
         else {
             response.send(err);
@@ -47,6 +57,7 @@ let updateCourseInfo = (request, response) => {
 let displayAllCourseInfo = (request, response) => {
     courseModel.find({}, (err, result) => {
         if (!err) {
+            console.log(result)
             response.send(result);
         }
         else {
