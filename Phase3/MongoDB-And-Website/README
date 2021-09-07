@@ -1,0 +1,12 @@
+In command prompt 1:  (run MongoDB server)
+cd C:\Program Files\MongoDB\Server\5.0\bin
+mongod
+
+In command prompt 2: (run backend)
+cd 2058636_KelsyLee_Mean_Stack\Phase3\MongoDB-And-Website\backend
+node app.js
+
+In command prompt 3: (run frontend)
+cd 2058636_KelsyLee_Mean_Stack\Phase3\MongoDB-And-Website\frontend
+node client.js
+open http://localhost:9090
