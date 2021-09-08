@@ -2,6 +2,7 @@
 var socket = io()
 
 function sendMsg() {
+    // get values from input fields
     let name = document.getElementById('name').value;
     let msg = document.getElementById('msg').value;
 
@@ -10,7 +11,7 @@ function sendMsg() {
         name: name,
         message: msg
     });
-    
+
     // add to Chat Log
     let msgNode = document.createTextNode(`${name}: ${msg}`);
     let userMsg = document.createElement('p');
@@ -18,9 +19,7 @@ function sendMsg() {
     userMsg.appendChild(msgNode);
     document.getElementById('chatlog').appendChild(userMsg);
 
-
-
+    // reset input field
     document.getElementById('name').value = "";
     document.getElementById('msg').value = "";
-    // document.getElementById('sendMsgForm').reset();
 }

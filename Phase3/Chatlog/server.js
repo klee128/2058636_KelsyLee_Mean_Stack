@@ -31,15 +31,17 @@ app.get('/client.css', (req, res) => {
 
 // while the socket.io connection is open ... 
 io.on('connection', (socket) => {
-    
+    // when we receive a message from client
     socket.on('userMsg', (msg) => {
         
-        // create mongoDB database
+        // connect to mongoDB database
         mongoose.connect('mongodb://localhost:27017/Chatlog')
             .then(res => console.log('Connected to database'))
             .catch(err => console.log(err));
         
-        // mongoose insert operation
+        // mongoose operations are async, so close the connection in innermost operation
+        // mongoose.connection.once cuz we only want to insert the newest message
+        // if do mongoose.connection.on(will insert previous messages too)
         mongoose.connection.once('open', () => {
             
             messageModel.count({}, (err, result) => {
