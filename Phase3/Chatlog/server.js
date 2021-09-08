@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
             .catch(err => console.log(err));
         
         // mongoose insert operation
-        mongoose.connection.on('open', () => {
+        mongoose.connection.once('open', () => {
             
             messageModel.count({}, (err, result) => {
                 if (!err) {
@@ -53,7 +53,6 @@ io.on('connection', (socket) => {
                     }
                     // table has existing records
                     else {
-                        // name exists in table, 
                         messageModel.find({ name: msg.name }, (err, result) => {
                             if (err) console.log('error finding name')
                             else if (result[0]) {
@@ -67,7 +66,6 @@ io.on('connection', (socket) => {
                                 });
                             }
                             else {
-                                console.log("name not found")
                                 messageModel.aggregate([{
                                     $group: { _id: null, maxId: { $max: '$userID' } }
                                 }],
@@ -83,39 +81,26 @@ io.on('connection', (socket) => {
                                             });
                                         }
                                         else console.log('error max uID')
-                                    })
+                                    }
+                                )
+                                
                             }
                                 
                         })
-
-                        // messageModel.aggregate([{
-                        //     $group: { _id: null, maxId: { $max: '$userID' } }
-                        // }],
-                        //     (err, result) => {
-                        //         if (!err) {
-                        //             console.log(result[0].maxId);
-                        //         }
-                        //         else console.log('error max uID')
-                        // })
-                        
                     } //end of else 
 
-
+                    
                 }
                 else {
                     console.log('error w/ count');
                 }
+                
             })
             
-            // the original
-            // messageModel.insertMany(msg, (err, result) => {
-            //     if (!err) console.log(result);
-            //     else console.log(err);
-            // });
         })
 
     })
-    
+    mongoose.disconnect();
 })
 
 
