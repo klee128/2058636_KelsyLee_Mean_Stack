@@ -5,11 +5,22 @@ function sendMsg() {
     let name = document.getElementById('name').value;
     let msg = document.getElementById('msg').value;
 
-    // console.log(name + msg);
+    // send to server to store in MongoDB
     socket.emit('userMsg', {
         name: name,
         message: msg
     });
+    
+    // add to Chat Log
+    let msgNode = document.createTextNode(`${name}: ${msg}`);
+    let userMsg = document.createElement('p');
+    userMsg.style.color = '#613659';
+    userMsg.appendChild(msgNode);
+    document.getElementById('chatlog').appendChild(userMsg);
 
-    document.getElementById('sendMsgForm').reset();
+
+
+    document.getElementById('name').value = "";
+    document.getElementById('msg').value = "";
+    // document.getElementById('sendMsgForm').reset();
 }

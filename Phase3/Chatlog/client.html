@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Chatlog</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='client.css'>
     <script src="/socket.io/socket.io.js"></script>
     <script src='client.js'></script>
 
@@ -14,15 +14,33 @@
 
 <body>
     <h1 style="text-align: center;">Chatlog</h1>
-    <form id="sendMsgForm" onsubmit="sendMsg()">
-        <label>Name:</label>
-        <input type="text" id="name" />
-        <br /> <br />
-        <label>Message</label>
-        <textarea style="vertical-align: top;" id="msg"></textarea>
-        <br /> <br />
-        <button type="submit">Send</button>
-    </form>
+
+    <div class='boxed'>
+        <div class='chatlogBox' id='chatlog'>
+            <h3 style="text-align: center;">Chat Log</h3>
+        </div>
+        <br/>
+        <!-- user input -->
+        <div>
+            <label>Name:</label>
+            <input type="text" id="name" />
+            <br /> <br />
+            <label>Message</label>
+            <textarea style="vertical-align: top;" id="msg"></textarea>
+            <br /> <br />
+            <button type="button" onclick="sendMsg()">Send</button>
+        </div>
+        <!-- <form id="sendMsgForm" onsubmit="sendMsg()">
+            <label>Name:</label>
+            <input type="text" id="name" />
+            <br /> <br />
+            <label>Message</label>
+            <textarea style="vertical-align: top;" id="msg"></textarea>
+            <br /> <br />
+            <button type="submit">Send</button>
+        </form> -->
+    </div>
+    
 
 </body>
 

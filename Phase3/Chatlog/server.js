@@ -25,10 +25,13 @@ app.get('/', (req, res) => {
 app.get('/client.js', (req, res) => {
     res.sendFile(__dirname + '/client.js');
 })
+app.get('/client.css', (req, res) => {
+    res.sendFile(__dirname +"/client.css")
+})
 
-
+// while the socket.io connection is open ... 
 io.on('connection', (socket) => {
- 
+    
     socket.on('userMsg', (msg) => {
         
         // create mongoDB database
@@ -51,6 +54,7 @@ io.on('connection', (socket) => {
                         }], (err, result) => {
                             if (!err) console.log(result);
                             else console.log(err);
+                            mongoose.disconnect();
                         });
                     }
                     // table has existing records
@@ -66,6 +70,7 @@ io.on('connection', (socket) => {
                                 }], (err, result) => {
                                     if (!err) console.log(result);
                                     else console.log(err);
+                                    mongoose.disconnect();
                                 });
                             } // end of name exists in table. reuse userID
                             // name does not exist in table. create new userID
@@ -82,6 +87,7 @@ io.on('connection', (socket) => {
                                             }], (err, result) => {
                                                 if (!err) console.log(result);
                                                 else console.log(err);
+                                                mongoose.disconnect();
                                             });
                                         }
                                         else console.log('error max uID')
@@ -96,7 +102,6 @@ io.on('connection', (socket) => {
             }) // end of messageModel.count
         }) //end of mongoose.connection
     }) //end of socket.on
-    mongoose.disconnect();
 }) //end of io.on
 
 
