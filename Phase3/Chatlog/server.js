@@ -16,10 +16,11 @@ let http = require('http').Server(app);
 let io = require('socket.io')(http);
 
 
-
+// link to client.html
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client.html');
 })
+// function
 app.get('/client.js', (req, res) => {
     res.sendFile(__dirname + '/client.js');
 })
@@ -34,16 +35,83 @@ io.on('connection', (socket) => {
             .then(res => console.log('Connected to database'))
             .catch(err => console.log(err));
         
+        // mongoose insert operation
         mongoose.connection.on('open', () => {
-            console.log('open db');
-            messageModel.insertMany(msg, (err, result) => {
+            
+            messageModel.count({}, (err, result) => {
                 if (!err) {
-                    console.log(result);
+                    // if 1st entry in table
+                    if (result == 0) {
+                        messageModel.insertMany([{
+                            name: msg.name,
+                            message: msg.message,
+                            userID: 1
+                        }], (err, result) => {
+                            if (!err) console.log(result);
+                            else console.log(err);
+                        });
+                    }
+                    // table has existing records
+                    else {
+                        // name exists in table, 
+                        messageModel.find({ name: msg.name }, (err, result) => {
+                            if (err) console.log('error finding name')
+                            else if (result[0]) {
+                                messageModel.insertMany([{
+                                    name: msg.name,
+                                    message: msg.message,
+                                    userID: result[0].userID
+                                }], (err, result) => {
+                                    if (!err) console.log(result);
+                                    else console.log(err);
+                                });
+                            }
+                            else {
+                                console.log("name not found")
+                                messageModel.aggregate([{
+                                    $group: { _id: null, maxId: { $max: '$userID' } }
+                                }],
+                                    (err, result) => {
+                                        if (!err) {
+                                            messageModel.insertMany([{
+                                                name: msg.name,
+                                                message: msg.message,
+                                                userID: result[0].maxId + 1
+                                            }], (err, result) => {
+                                                if (!err) console.log(result);
+                                                else console.log(err);
+                                            });
+                                        }
+                                        else console.log('error max uID')
+                                    })
+                            }
+                                
+                        })
+
+                        // messageModel.aggregate([{
+                        //     $group: { _id: null, maxId: { $max: '$userID' } }
+                        // }],
+                        //     (err, result) => {
+                        //         if (!err) {
+                        //             console.log(result[0].maxId);
+                        //         }
+                        //         else console.log('error max uID')
+                        // })
+                        
+                    } //end of else 
+
+
                 }
                 else {
-                    console.log(err);
+                    console.log('error w/ count');
                 }
-            });
+            })
+            
+            // the original
+            // messageModel.insertMany(msg, (err, result) => {
+            //     if (!err) console.log(result);
+            //     else console.log(err);
+            // });
         })
 
     })
