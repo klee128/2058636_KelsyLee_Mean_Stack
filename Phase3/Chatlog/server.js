@@ -12,6 +12,7 @@ let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 let http = require('http').Server(app);
+
 // set up socket.io
 let io = require('socket.io')(http);
 
@@ -39,7 +40,8 @@ io.on('connection', (socket) => {
         mongoose.connection.once('open', () => {
             
             messageModel.count({}, (err, result) => {
-                if (!err) {
+                if (err) console.log('error w/ count')
+                else {
                     // if 1st entry in table
                     if (result == 0) {
                         messageModel.insertMany([{
@@ -55,6 +57,7 @@ io.on('connection', (socket) => {
                     else {
                         messageModel.find({ name: msg.name }, (err, result) => {
                             if (err) console.log('error finding name')
+                            // name exists in table. reuse userID
                             else if (result[0]) {
                                 messageModel.insertMany([{
                                     name: msg.name,
@@ -64,7 +67,8 @@ io.on('connection', (socket) => {
                                     if (!err) console.log(result);
                                     else console.log(err);
                                 });
-                            }
+                            } // end of name exists in table. reuse userID
+                            // name does not exist in table. create new userID
                             else {
                                 messageModel.aggregate([{
                                     $group: { _id: null, maxId: { $max: '$userID' } }
@@ -84,24 +88,16 @@ io.on('connection', (socket) => {
                                     }
                                 )
                                 
-                            }
+                            } // end of name does not exist in table. create new userID
                                 
                         })
-                    } //end of else 
-
-                    
+                    } //end of table has existing records
                 }
-                else {
-                    console.log('error w/ count');
-                }
-                
-            })
-            
-        })
-
-    })
+            }) // end of messageModel.count
+        }) //end of mongoose.connection
+    }) //end of socket.on
     mongoose.disconnect();
-})
+}) //end of io.on
 
 
 // run server using http's server (not express's server)
